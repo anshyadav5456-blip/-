@@ -1,0 +1,427 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunjan ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #06040a;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Premium aesthetic black & purple ambient background */
+        #ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 18% 15%, rgba(109, 40, 217, 0.28) 0%, transparent 48%),
+                radial-gradient(circle at 82% 80%, rgba(147, 51, 234, 0.24) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #12081f 0%, #050308 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(75px);
+            opacity: 0.45;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 340px;
+            height: 340px;
+            background: #5b21b6;
+            top: -90px;
+            left: -80px;
+            animation: driftOne 16s ease-in-out infinite alternate;
+        }
+
+        .orb-2 {
+            width: 380px;
+            height: 380px;
+            background: #7e22ce;
+            bottom: -110px;
+            right: -90px;
+            animation: driftTwo 19s ease-in-out infinite alternate;
+        }
+
+        .orb-3 {
+            width: 240px;
+            height: 240px;
+            background: #9d174d;
+            top: 45%;
+            left: 55%;
+            opacity: 0.22;
+            animation: driftOne 22s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes driftOne {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(45px, 35px, 0) scale(1.12); }
+        }
+
+        @keyframes driftTwo {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(-45px, -30px, 0) scale(1.1); }
+        }
+
+        /* Subtle floating aesthetic particles */
+        #bg-particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -40px;
+            opacity: 0;
+            animation: floatUp linear infinite;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.24;
+            }
+            85% {
+                opacity: 0.24;
+            }
+            100% {
+                transform: translate3d(var(--drift), -110vh, 0) rotate(220deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* Scrollable page starting cleanly from the top */
+        #page-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #page-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        #lines-container {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 36px 22px 95px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            transition: opacity 0.9s ease;
+        }
+
+        /* Clean typed lines — no glow, no blur */
+        .line {
+            width: 100%;
+            text-align: left;
+            font-size: 1.35rem;
+            font-weight: 500;
+            line-height: 1.5;
+            letter-spacing: 0.2px;
+            color: rgba(245, 240, 255, 0.85);
+            white-space: pre-wrap;
+            word-break: break-word;
+            transition: color 0.35s ease;
+        }
+
+        .line.typing {
+            color: #ffffff;
+        }
+
+        /* Space before closing lines */
+        .line.gap-top {
+            margin-top: 16px;
+            color: #f3e8ff;
+            font-weight: 600;
+        }
+
+        /* Final line clean lavender accent */
+        .line.final-line {
+            font-size: 1.55rem;
+            font-weight: 600;
+            color: #e9d5ff;
+            animation: finalReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes finalReveal {
+            0% { transform: translateY(4px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Smooth per-character typing animation */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(6px) scale(0.92);
+            animation: charType 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes charType {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Blinking lavender typewriter cursor */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.15em;
+            background-color: #c084fc;
+            margin-left: 3px;
+            vertical-align: -0.18em;
+            border-radius: 2px;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Final heart & butterfly celebration burst */
+        .burst-item {
+            position: fixed;
+            left: 50%;
+            top: 55%;
+            font-size: 1.8rem;
+            pointer-events: none;
+            z-index: 30;
+            will-change: transform, opacity;
+            animation: burstOut 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes burstOut {
+            0% {
+                transform: translate3d(-50%, -50%, 0) scale(0.4) rotate(0deg);
+                opacity: 1;
+            }
+            75% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate3d(calc(-50% + var(--tx)), calc(-50% + var(--ty)), 0) scale(1.25) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Mobile tuning */
+        @media (max-width: 600px) {
+            #lines-container {
+                padding: 26px 18px 85px;
+                gap: 8px;
+            }
+            .line {
+                font-size: 1.05rem;
+                line-height: 1.48;
+            }
+            .line.final-line {
+                font-size: 1.2rem;
+            }
+            .orb-1, .orb-2 {
+                width: 240px;
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div id="bg-particles"></div>
+
+    <div id="page-wrapper">
+        <div id="lines-container"></div>
+    </div>
+
+    <script>
+        const lines = [
+            { text: "G 💗" },
+            { text: "Gu 🥺" },
+            { text: "Gun 🎀" },
+            { text: "Gunj 🦋" },
+            { text: "Gunja 💕" },
+            { text: "Gunjan 😚" },
+            { text: "Gunjan 🧿" },
+            { text: "Gunjan ❤️" },
+            { text: "Gunjan I 🫶" },
+            { text: "Gunjan I L 💗" },
+            { text: "Gunjan I Lo 🦋" },
+            { text: "Gunjan I Lov 🥺" },
+            { text: "Gunjan I Love 💝" },
+            { text: "Gunjan I Love u 😘" },
+            { text: "Gunjan I Love uh 💓" },
+            { text: "Gunjan I Love uhh 🧸" },
+            { text: "Gunjan I Love uhh s ⭐" },
+            { text: "Gunjan I Love uhh so 💞" },
+            { text: "Gunjan I Love uhh so m 🥹" },
+            { text: "Gunjan I Love uhh so mu 😍" },
+            { text: "Gunjan I Love uhh so muc 💋" },
+            { text: "Gunjan I Love uhh so much 💗" },
+            { text: "Gunjan I Love uhh so muchh 🧸" },
+            { text: "Gunjan I Love uhh so muchhh 💍❤️" },
+            { text: "Gunjan meri cutieee 🥹🎀", gapTop: true },
+            { text: "Love you infinityyy ♾️💗🫂", isFinal: true }
+        ];
+
+        const wrapper = document.getElementById('page-wrapper');
+        const container = document.getElementById('lines-container');
+        const bgParticles = document.getElementById('bg-particles');
+
+        function splitGraphemes(text) {
+            if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+                const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+                return Array.from(segmenter.segment(text), seg => seg.segment);
+            }
+            return Array.from(text);
+        }
+
+        const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        function initBackgroundParticles() {
+            const symbols = ['💜', '🦋', '✨', '💗', '🎀'];
+            for (let i = 0; i < 24; i++) {
+                const el = document.createElement('div');
+                el.className = 'particle';
+                el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = (Math.random() * 100) + 'vw';
+                el.style.fontSize = (Math.random() * 0.55 + 0.8) + 'rem';
+                el.style.setProperty('--drift', ((Math.random() - 0.5) * 80) + 'px');
+                el.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                el.style.animationDelay = (Math.random() * 8) + 's';
+                bgParticles.appendChild(el);
+            }
+        }
+
+        function triggerFinalBurst() {
+            const burstEmojis = ['💜', '💗', '🦋', '🎀', '✨', '🫂'];
+            for (let i = 0; i < 36; i++) {
+                const item = document.createElement('div');
+                item.className = 'burst-item';
+                item.textContent = burstEmojis[Math.floor(Math.random() * burstEmojis.length)];
+
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 240 + 70;
+                item.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+                item.style.setProperty('--ty', (Math.sin(angle) * dist - 40) + 'px');
+                item.style.setProperty('--rot', ((Math.random() - 0.5) * 320) + 'deg');
+
+                document.body.appendChild(item);
+                setTimeout(() => item.remove(), 1850);
+            }
+        }
+
+        function keepBottomVisible() {
+            const overflow = wrapper.scrollHeight - wrapper.clientHeight;
+            if (overflow > 0) {
+                wrapper.scrollTo({
+                    top: overflow,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        async function typeLine(item) {
+            const lineEl = document.createElement('div');
+            lineEl.className = 'line typing';
+            if (item.gapTop) lineEl.classList.add('gap-top');
+            if (item.isFinal) lineEl.classList.add('final-line');
+
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            lineEl.appendChild(cursor);
+
+            container.appendChild(lineEl);
+            keepBottomVisible();
+
+            const chars = splitGraphemes(item.text);
+            const charDelay = item.isFinal ? 75 : 55;
+
+            for (const ch of chars) {
+                const span = document.createElement('span');
+                if (ch === ' ') {
+                    span.textContent = ' ';
+                } else {
+                    span.className = 'char';
+                    span.textContent = ch;
+                }
+                lineEl.insertBefore(span, cursor);
+                keepBottomVisible();
+                await wait(charDelay);
+            }
+
+            if (!item.isFinal) {
+                await wait(item.gapTop ? 450 : 320);
+                cursor.remove();
+                lineEl.classList.remove('typing');
+            }
+        }
+
+        async function runLoop() {
+            while (true) {
+                container.innerHTML = '';
+                wrapper.scrollTop = 0;
+                container.style.opacity = '1';
+
+                await wait(350);
+
+                for (let i = 0; i < lines.length; i++) {
+                    await typeLine(lines[i]);
+                }
+
+                triggerFinalBurst();
+                await wait(3500);
+
+                container.style.opacity = '0';
+                await wait(950);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initBackgroundParticles();
+            runLoop();
+        });
+    </script>
+</body>
+</html>
+
